@@ -16,19 +16,8 @@ RUN mvn clean package -Dmaven.test.skip
 
 # build JRE run image
 FROM eclipse-temurin:22.0.1_8-jdk-alpine
-
-RUN apk update && apk add --no-cache gcompat
-WORKDIR /footballjourney
-
-RUN echo $JAVA_HOME
-
-RUN adduser -S subscription -G users
-USER footballjourney:users
-ARG KEYSTORE_LOC="$JAVA_HOME/lib/security/cacerts"
-RUN keytool -importcert -noprompt -trustcacerts -file /tmp/ca -keystore ${KEYSTORE_LOC}
-
-COPY --from=maven_builder /app/target/*.jar /subscription/subscription.jar
-ENTRYPOINT ["java", "-XX:MaxHeapSize=850m", "-jar","/footballjourney/footballjourney.jar"]
+COPY --from=maven_builder /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-XX:MaxHeapSize=850m", "-jar","app.jar"]
 
 
 
