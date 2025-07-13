@@ -1,5 +1,5 @@
 #Download base image maven
-FROM maven:3.9.7-eclipse-temurin-22-alpine AS maven_builder
+FROM maven:3.9.10-eclipse-temurin-17-alpine AS maven_builder
 
 # LABEL about the custom image
 LABEL maintainer="smadwani@equinix.com"
@@ -15,7 +15,7 @@ COPY src ./src
 RUN mvn clean package -Dmaven.test.skip
 
 # build JRE run image
-FROM eclipse-temurin:22.0.1_8-jdk-alpine
+FROM eclipse-temurin:17.0.15_6-jdk
 COPY --from=maven_builder /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-XX:MaxHeapSize=850m", "-jar","app.jar"]
 
