@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -t simple-docker-service-062d83e2b7d9 .
+      - docker tag simple-docker-service-062d83e2b7d9:latest 864981742740.dkr.ecr.us-east-2.amazonaws.com/simple-docker-service-062d83e2b7d9:latest
+      - docker push 864981742740.dkr.ecr.us-east-2.amazonaws.com/simple-docker-service-062d83e2b7d9:latest
