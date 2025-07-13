@@ -1,5 +1,5 @@
 #Download base image maven
-FROM maven:3.9.9-amazoncorretto-17-alpine AS maven_builder
+FROM maven:3.9.10-eclipse-temurin-17-alpine AS maven_builder
 
 # LABEL about the custom image
 LABEL maintainer="smadwani@equinix.com"
